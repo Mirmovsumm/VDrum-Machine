@@ -1,23 +1,23 @@
+import React from "react";
 import { AudioClip } from "./types";
 
 interface DrumProps {
-  audioClips: AudioClip;
+  audioClip: AudioClip;
 }
 
-const Drum = ({ audioClip }: DrumProps) => {
-  const playSound = (clip: AudioClip) => {
-    (document.getElementById(clip.keyTrigger) as HTMLAudioElement)
+const Drum: React.FC<DrumProps> = ({ audioClip }) => {
+  const playSound = () => {
+    (document.getElementById(audioClip.keyTrigger) as HTMLAudioElement)
       .play()
       .catch(console.error);
-    document.getElementById("display")!.innerHTML = clip.description;
-
+    document.getElementById("display")!.innerHTML = audioClip.description;
   };
 
   return (
     <button
       className="drum-pad"
       id={`drum-${audioClip.keyTrigger}`}
-      onClick={() => playSound(audioClip)}
+      onClick={playSound}
     >
       <audio src={audioClip.url} id={audioClip.keyTrigger} className="clip" />
       {audioClip.keyTrigger}
